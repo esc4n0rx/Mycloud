@@ -1,0 +1,125 @@
+{
+  "api_documentation": [
+    {
+      "method": "POST",
+      "path": "/folder",
+      "description": "Cria uma nova pasta no diretório de uploads.",
+      "authentication": "Requer 'Authorization: Bearer <TOKEN>' no header.",
+      "url_params": [],
+      "body": {
+        "type": "application/json",
+        "payload": {
+          "name": "string (nome da pasta)"
+        },
+        "example": {
+          "name": "meus-documentos"
+        }
+      },
+      "success_response": {
+        "status": 201,
+        "body": {
+          "message": "Pasta 'meus-documentos' criada com sucesso."
+        }
+      },
+      "error_response": {
+        "status": 400,
+        "body": {
+          "message": "O nome da pasta é obrigatório."
+        }
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/upload/:folder",
+      "description": "Faz upload de um ou mais arquivos para uma pasta específica.",
+      "authentication": "Requer 'Authorization: Bearer <TOKEN>' no header.",
+      "url_params": [
+        {
+          "name": "folder",
+          "type": "string",
+          "description": "O nome da pasta de destino, que já deve existir."
+        }
+      ],
+      "body": {
+        "type": "multipart/form-data",
+        "payload": "Campo 'files' contendo um ou mais arquivos."
+      },
+      "success_response": {
+        "status": 201,
+        "body": {
+          "message": "Arquivos enviados com sucesso!",
+          "files": [
+            "1678886400000-meu-arquivo-1.pdf",
+            "1678886400001-minha-imagem.png"
+          ]
+        }
+      },
+      "error_response": {
+        "status": 400,
+        "body": {
+          "message": "A pasta 'pasta-inexistente' não existe. Crie-a primeiro."
+        }
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/files/:folder/:filename",
+      "description": "Serve um arquivo específico para download ou visualização.",
+      "authentication": "Requer 'Authorization: Bearer <TOKEN>' no header.",
+      "url_params": [
+        {
+          "name": "folder",
+          "type": "string",
+          "description": "O nome da pasta onde o arquivo está localizado."
+        },
+        {
+          "name": "filename",
+          "type": "string",
+          "description": "O nome do arquivo a ser acessado."
+        }
+      ],
+      "body": null,
+      "success_response": {
+        "status": 200,
+        "body": "O conteúdo binário do arquivo."
+      },
+      "error_response": {
+        "status": 404,
+        "body": {
+          "message": "Arquivo não encontrado."
+        }
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/files/:folder/:filename",
+      "description": "Deleta um arquivo específico.",
+      "authentication": "Requer 'Authorization: Bearer <TOKEN>' no header.",
+      "url_params": [
+        {
+          "name": "folder",
+          "type": "string",
+          "description": "O nome da pasta onde o arquivo está localizado."
+        },
+        {
+          "name": "filename",
+          "type": "string",
+          "description": "O nome do arquivo a ser deletado."
+        }
+      ],
+      "body": null,
+      "success_response": {
+        "status": 200,
+        "body": {
+          "message": "Arquivo deletado com sucesso."
+        }
+      },
+      "error_response": {
+        "status": 404,
+        "body": {
+          "message": "Arquivo não encontrado."
+        }
+      }
+    }
+  ]
+}
