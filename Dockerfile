@@ -37,7 +37,7 @@ RUN mkdir -p /uploads
 VOLUME /uploads
 
 # Expõe a porta da aplicação
-EXPOSE 3000
+EXPOSE 4500
 
 # Comando para iniciar a aplicação
 CMD ["node", "dist/server.js"]
