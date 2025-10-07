@@ -4,11 +4,15 @@ import path from 'path';
 import fs from 'fs';
 import { authMiddleware } from './middlewares/authMiddleware';
 import fileRoutes from './routes/fileRoutes';
+import helmet from 'helmet';
 
 // Carrega variáveis de ambiente do .env
 dotenv.config();
 
 const app = express();
+
+// Aplica o middleware de segurança Helmet
+app.use(helmet());
 
 // Middleware para parsear JSON no corpo das requisições
 app.use(express.json());
