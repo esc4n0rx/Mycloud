@@ -49,4 +49,4 @@ VOLUME /uploads
 EXPOSE 4500
 
 # Comando para iniciar a aplicação com pm2
-CMD pm2-runtime start ecosystem.config.js --env production
+CMD ["/app/node_modules/.bin/pm2-runtime", "start", "ecosystem.config.js", "--env", "production"]
